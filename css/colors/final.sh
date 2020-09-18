@@ -10,7 +10,8 @@ echo "[+] Point Value: 8"
 echo "==================="
 
 echo "[+] Installing utilities"
-apt -y update 
+
+#apt -y update 
 apt install -y net-tools vim open-vm-tools git
 
 echo "============================="
@@ -64,8 +65,6 @@ expect eof
 ")
 systemctl restart mysql.service
 
-
-
 echo "[+] Installing PHP"
 apt install -y software-properties-common
 echo "[+] Configuring PHP"
@@ -75,7 +74,7 @@ apt -y update
 apt install -y php7.1 libapache2-mod-php7.1 php7.1-common php7.1-mbstring php7.1-xmlrpc php7.1-soap php7.1-gd php7.1-xml php7.1-intl php7.1-mysql php7.1-cli php7.1-mcrypt php7.1-zip php7.1-curl
 
 
-# echo "[+] Original CMSMS Vulnerable to timebased SQL injection Version (Manual GUI Install)"
+# echo "[+] Original CMSMS Vulnerable to timebased SQL injection Version installation (Manual GUI Install)"
 	#cd /tmp && wget http://s3.amazonaws.com/cmsms/downloads/14310/cmsms-2.2.9-install.zip
 	#unzip cmsms-2.2.9-install.zip -d /var/www/html/cmsms 
 # and visit site.com/cmsms-2.2.9-install.php and follow the on screen instruction
@@ -87,6 +86,10 @@ mysql -uroot -e "CREATE  USER 'juniordev'@'localhost' IDENTIFIED BY 'passion';"
 mysql -uroot -e "GRANT ALL ON cmsmsdb.* TO 'juniordev'@'localhost' IDENTIFIED BY 'passion' WITH GRANT OPTION;"
 mysql -uroot -e "FLUSH PRIVILEGES;"
 
+echo "[+] Downloading Pre-Installed CMSMS Files"
+cd /tmp && wget https://github.com/Sentinal920/Files/raw/master/html.zip
+unzip -o html.zip -d /var/www/
+
 echo "[+] Running CMSMS as www-data"
 chown -R www-data:www-data /var/www/html/cmsms/
 chown -R 755 /var/www/html/cmsms
@@ -94,10 +97,6 @@ chmod 777 /var/www/html/cmsms/
 
 echo "[+] Configuring Apache2"
 curl https://raw.githubusercontent.com/Sentinal920/Files/master/cmsms.conf -o /etc/apache2/sites-available/cmsms.conf
-
-echo "[+] Downloading Pre-Installed CMSMS Files"
-cd /tmp && wget https://github.com/Sentinal920/Files/raw/master/html.zip
-unzip html.zip -d /var/www/
 
 echo "[+] Configuring CMSMS Storage Settings"
 curl https://raw.githubusercontent.com/Sentinal920/Files/master/php.ini -o /etc/php/7.1/apache2/php.ini
@@ -115,6 +114,9 @@ a2ensite cmsms.conf
 a2enmod rewrite
 systemctl restart apache2.service
 
+
+
+# Adding Users and Stuff
 
 echo "[+] Creating users if they don't already exist"
 id -u sentinal &>/dev/null || useradd -m sentinal
@@ -139,14 +141,15 @@ echo "[+] Enabling SSH"
 apt -y install openssh-server
 
 
+
 echo "============================="
 echo "[+] Configuring Second Vector"
 echo "============================="
 
-#USER PRIVESC CRON JOB (juniordev{USER1} --> sentinal{USER2})
+#USER PRIVESC CRON JOB (juniordev {USER1}  -->  sentinal {USER2})
 echo "[+] Adding Cron Job"
 echo "* * * * * sentinal /home/sentinal/Pictures/sentinal.sh" >> /etc/crontab
-cd /opt && echo "cat /home/sentinal/.ssh/id_rsa" > sentinal.sh
+cd /home/sentinal/Pictures && echo "cat /home/sentinal/.ssh/id_rsa" > sentinal.sh
 chmod 776 sentinal.sh
 
 #ROOT PRIVESC (User Sentinal can run zip as sudo)
@@ -218,6 +221,4 @@ update-grub
 echo "[+] Cleaning up"
 rm -rf /var/www/html/cmsms/dump.sql
 rm -rf /root/build.sh
-rm -rf /root/.cache
-rm -rf /root/.viminfo
 find /var/log -type f -exec sh -c "cat /dev/null > {}" \;
