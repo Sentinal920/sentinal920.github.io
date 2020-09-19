@@ -1,4 +1,4 @@
-# Build Guide for ShakaBrah 
+# Build Guide for Sentinal
 
 ## Status
 
