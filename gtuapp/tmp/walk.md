@@ -50,7 +50,7 @@ sys admin
 It is running an virtual host of sentinal.com
 So we have to add sentinal.com in /etc/hosts
 ```
-root@kunal:~# nano /etc/hosts
+kali@kali:~# nano /etc/hosts
 192.168.83.150  sentinal.com
 ```
 
