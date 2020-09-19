@@ -13,7 +13,8 @@ PORT   STATE SERVICE
 22/tcp open  ssh
 80/tcp open  http
 ```
-We find port 80 is open and visit it in our browser as a first step. On the page we find apache default home page. So we check for /robots.txt and view-source. But don't find anything. Thus start the directory bruteforcing using dirb.
+We find port 80 is open and visit it in our browser as a first step. On the page we find apache default home page. 
+Check for /robots.txt and view-source but we don't get anything. Now directory bruteforcing using dirb gets us a note.
 
 ```
 root@sentinal-VirtualBox:~# dirb http://192.168.83.150 -X .txt
@@ -34,7 +35,7 @@ END_TIME: Sat Sep 19 05:49:59 2020
 DOWNLOADED: 4612 - FOUND: 1
 ```
 
-We find a hidden note that says
+We find a hidden note.txt that says
 ```
 Dear Developers,
 
