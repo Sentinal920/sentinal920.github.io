@@ -57,7 +57,7 @@ root@kunal:~# nano /etc/hosts
 ## Exploitation
 
 On visiting sentinal.com in our browser, we find it is running `CMS Made Simple v2.2.9`.
-Searching for an exploit for the same, we find it is vulnerable to SQL injection.
+Searching for an exploit, we find it is vulnerable to SQL injection.
 ```
 Cmsms < 2.2.10 SQL Injection
 https://www.exploit-db.com/exploits/46635
