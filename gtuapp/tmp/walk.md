@@ -69,7 +69,7 @@ Before running the script make sure following packages are installed
 	pip install setuptools
 	pip install termcolor
 ```
-Execute the script with a bruteforce wordlist
+Execute the script with a wordlist to bruteforce
 ```
 python 46635.py -u http://sentinal.com -w /opt/rockyou.txt --crack 
 
