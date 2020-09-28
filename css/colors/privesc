@@ -1,0 +1,18 @@
+mkdir /home/sentinal/dev
+cd /home/sentinal/dev
+
+echo "rm -rf /home/sentinal/dev/*" > /opt/task1.sh
+echo "echo \" Hey there \" > /home/sentinal/dev/task.sh" >> /opt/task1.sh
+echo "chmod 700 /home/sentinal/dev/task.sh" >> /opt/task1.sh
+chown -R sentinal:sentinal /home/sentinal/dev
+
+
+echo "cd /home/sentinal/dev/ && chmod 740 *" > /opt/task2.sh
+
+chmod +x /opt/task1.sh
+chmod +x /opt/task2.sh
+
+echo "* * * * * root /opt/task1.sh" >> /etc/crontab
+echo "* * * * * root /opt/task2.sh" >> /etc/crontab
+
+chmod 700 /opt/task1.sh
