@@ -1,0 +1,123 @@
+
+apt install -y curl zip unzip
+
+sudo apt install apache2
+
+
+sudo sed -i "s/Options Indexes FollowSymLinks/Options FollowSymLinks/" /etc/apache2/apache2.conf
+
+sudo systemctl stop apache2.service
+sudo systemctl start apache2.service
+sudo systemctl enable apache2.service
+
+sudo apt-get install mariadb-server mariadb-client
+
+sudo systemctl stop mariadb.service
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
+
+sudo mysql_secure_installation //
+
+		echo "[+] Configuring Mysql_Secure_Installation"
+		[ ! -e /usr/bin/expect ] && { apt-get -y install expect; }
+		SECURE_MYSQL=$(expect -c "
+		set timeout 10
+		spawn mysql_secure_installation
+		expect \"Enter current password for root (enter for none): \"
+		send \"n\r\"
+		expect \"Switch to unix_socket authentication \[Y/n\] \"
+		send \"n\r\"
+		expect \"Change the root password? \[Y/n\] \"
+		send \"y\r\"
+		expect \"New password: \"
+		send \"RootisnotthathardastheysayButNotEasyEither\r\"
+		expect \"Re-enter new password: \"
+		send \"RootisnotthathardastheysayButNotEasyEither\r\"
+		expect \"Remove anonymous users? \[Y/n\] \"
+		send \"y\r\"
+		expect \"Disallow root login remotely? \[Y/n\] \"
+		send \"y\r\"
+		expect \"Remove test database and access to it? \[Y/n\] \"
+		send \"y\r\"
+		expect \"Reload privilege tables now? \[Y/n\] \"
+		send \"y\r\"
+		expect eof
+		")
+sudo systemctl restart mariadb.service //
+
+sudo apt install php libapache2-mod-php libapache2-mod-php php-common php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl php-mysql php-cli  php-ldap php-zip php-curl php-sqlite3
+
+php-mcrypt
+
+
+
+//
+sudo nano /etc/php/7.1/apache2/php.ini # Ubuntu 17.10
+sudo nano /etc/php/7.0/apache2/php.ini # Ubuntu 17.04
+	file_uploads = On
+	allow_url_fopen = On
+	memory_limit = 256M
+	upload_max_filesize = 64M
+	max_execution_time = 240
+	max_input_vars = 1500
+
+
+
+mysql -uroot -e "CREATE DATABASE bolt;"
+mysql -uroot -e "CREATE USER 'tom'@'localhost' IDENTIFIED BY 'dragonballsuper';"
+mysql -uroot -e "GRANT ALL ON bolt.* TO 'tom'@'localhost' IDENTIFIED BY 'dragonballsuper' WITH GRANT OPTION;"
+mysql -uroot -e "FLUSH PRIVILEGES;"
+
+sudo mv bolt-v3.4.2 /var/www/html/bolt
+
+mysqldump -p bolt > bolt.sql
+
+
+
+
+cd /var/www/html/bolt
+
+sudo curl -sS https://getcomposer.org/installer | sudo php    //
+
+sudo cp /var/www/html/bolt/composer.json.dist /var/www/html/bolt/composer.json
+sudo php composer.phar install
+
+sudo chown -R www-data:www-data /var/www/html/bolt/
+sudo chmod -R 755 /var/www/html/bolt/
+
+
+sudo nano /var/www/html/bolt/app/config/config.yml
+	database:
+	driver: mysql
+	username: tom
+	password: dragonballsuper
+	databasename: bolt
+
+
+sudo nano /etc/apache2/sites-available/bolt.conf
+	<VirtualHost *:80>
+	     ServerAdmin admin@sentinal.com
+	     DocumentRoot /var/www/html/bolt/public
+	     ServerName sentinal.com
+	     ServerAlias www.sentinal.com
+
+	     <Directory /var/www/html/bolt/>
+	        Options +FollowSymlinks
+	        AllowOverride All
+	        Require all granted
+	     </Directory>
+
+	     ErrorLog ${APACHE_LOG_DIR}/error.log
+	     CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+	</VirtualHost>
+
+sudo a2ensite bolt.conf
+sudo a2enmod rewrite
+
+sudo systemctl restart apache2.service
+
+
+
+
+
