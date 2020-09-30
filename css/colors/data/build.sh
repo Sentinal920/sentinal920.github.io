@@ -150,7 +150,7 @@ echo "=================================="
 mkdir /home/dev
 cd /home/dev
 
-echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" >> /opt/task1.sh
+echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" > /opt/task1.sh
 
 chown -R www-data:www-data /home/dev
 
