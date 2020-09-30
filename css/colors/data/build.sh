@@ -134,7 +134,6 @@ ln -sf /dev/null /root/.bash_history
 ln -sf /dev/null /home/sentinal/.bash_history
 
 # Removing Sudo rights for all users
-
 echo "[+] Removing Sudo rights for all users"
 echo "Defaults	env_reset" > /etc/sudoers
 echo "Defaults	mail_badpass" >> /etc/sudoers
@@ -151,8 +150,8 @@ echo "=================================="
 mkdir /home/dev
 cd /home/dev
 
-echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" > /opt/task1.sh
-echo "chmod 700 /home/dev/sentinal.sh" >> /opt/task1.sh
+echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" >> /opt/task1.sh
+
 chown -R www-data:www-data /home/dev
 
 # Privilege Escalation vector 2 (chmod Wildcard *)
@@ -172,6 +171,8 @@ echo "4hk642b69b2a23dbz3c5867u3f1ffd63" > /home/local.txt
 chmod 0600 /root/proof.txt
 chmod 0644 /home/local.txt
 chown www-data:www-data /home/local.txt 
+
+chmod 700 /home/dev/sentinal.sh
 
 echo "[+] Configuring hostname"
 hostnamectl set-hostname wildsniffer
