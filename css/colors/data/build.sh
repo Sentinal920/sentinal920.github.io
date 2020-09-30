@@ -112,6 +112,7 @@ echo "[+] Rewriting Apache Module"
 sudo a2ensite cmsms.conf
 sudo a2enmod rewrite 
 sudo systemctl restart apache2.service
+systemctl reload apache2
 sudo a2ensite monitor.conf
 sudo a2enmod rewrite 
 sudo systemctl restart apache2.service
