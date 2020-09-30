@@ -1,6 +1,6 @@
 Hey dave, 
 I wont be available for the next 2 days. Please make sure you inform the new interns about the tool we have been working on. 
 To work on their programming skills they have created a web based network monitoring tool. Check the file i've uploaded for intern names and roles. 
-Please make sure you take down our sub domains.
+Please make sure you take down our sub domain.
 Regards,
 Tom
