@@ -76,7 +76,7 @@ apt install -y php7.1 libapache2-mod-php7.1 php7.1-common php7.1-mbstring php7.1
 echo "[+] Creating CMSMS Database"
 mysql -uroot -e "CREATE DATABASE cmsmsdb;"
 mysql -uroot -e "CREATE USER 'tom'@'localhost' IDENTIFIED BY 'dragonballsuper';"
-mysql -uroot -e "GRANT ALL ON bolt.* TO 'tom'@'localhost' IDENTIFIED BY 'dragonballsuper' WITH GRANT OPTION;"
+mysql -uroot -e "GRANT ALL ON cmsmsdb.* TO 'tom'@'localhost' IDENTIFIED BY 'dragonballsuper' WITH GRANT OPTION;"
 mysql -uroot -e "FLUSH PRIVILEGES;"
 
 
