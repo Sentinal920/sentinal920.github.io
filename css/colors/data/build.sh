@@ -115,6 +115,7 @@ sudo systemctl restart apache2.service
 sudo a2ensite monitor.conf
 sudo a2enmod rewrite 
 sudo systemctl restart apache2.service
+systemctl reload apache2
 
 echo "[+] Enabling Anonymous FTP on port 21212"
 sudo apt-get install vsftpd
