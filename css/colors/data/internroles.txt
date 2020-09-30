@@ -1,0 +1,6 @@
+sentinal@sniffer.com : Firewall Manager
+dave@snifer.com : System Admin
+zorba@sniffer.com : CMS Manager
+tom@sniffer.com : Network Manager
+goku@sniffer.com : Developer
+
