@@ -122,6 +122,7 @@ echo "[+] Enabling Anonymous FTP on port 21212"
 sudo apt-get install vsftpd
 mkdir /var/ftp
 curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/note.txt -o /var/ftp/note.txt
+curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/internroles.txt -o /var/ftp/intern-roles.txt
 curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/vsftpd.conf -o /etc/vsftpd.conf 
 sudo service vsftpd start
 sudo systemctl enable vsftpd
