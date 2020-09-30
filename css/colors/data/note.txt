@@ -1,7 +1,6 @@
 Hey dave, 
-I wont be available for the next 2 days. Please make sure you inform the new interns about the tool we have been working on. 
+I wont be available for the next 2 days. Please make sure you inform the new interns about the tool "sniffer.com" we have been working on. 
 To work on their programming skills they have created a web based network monitoring tool. 
-Please make sure you take down "sniffer.com" and "monitor.sniffer.com"
-
+Please make sure you take down our sub domains.
 Regards,
 Tom
