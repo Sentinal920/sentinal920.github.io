@@ -151,22 +151,22 @@ echo "=================================="
 # Note:- Privesc is Super Hard to get and unique
 
 mkdir /home/dev
-cd /home/dev
 
-echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" > /opt/task1.sh
+echo "wall \'The harder you work the harder it is to surrender\' " > /home/dev/sentinal.sh
 
 chown -R www-data:www-data /home/dev
+chown -R root:root /home/dev/sentinal.sh
+chmod 700 /home/dev/sentinal.sh
 
 # Privilege Escalation vector 2 (chmod Wildcard *)
-echo "cd /home/dev/ && chmod 744 *" > /opt/task2.sh
+echo "cd /home/dev/ && chmod 744 *" > /opt/task.sh
 
-chmod +x /opt/task1.sh
-chmod +x /opt/task2.sh
+echo "* * * * * root /opt/task.sh" >> /etc/crontab
+echo "* * * * * root /home/dev/sentinal.sh" >> /etc/crontab
 
-echo "* * * * * root /opt/task1.sh" >> /etc/crontab
-echo "* * * * * root /opt/task2.sh" >> /etc/crontab
+chmod 744 /opt/task.sh
+chmod +x /home/dev/sentinal.sh
 
-chmod 700 /opt/task1.sh
 
 echo "[+] Dropping flags"
 echo "bkp42c7ad39d515656f49590c02f76k3" > /root/proof.txt
@@ -175,7 +175,7 @@ chmod 0600 /root/proof.txt
 chmod 0644 /home/local.txt
 chown www-data:www-data /home/local.txt 
 
-chmod 700 /home/dev/sentinal.sh
+
 
 echo "[+] Configuring hostname"
 hostnamectl set-hostname wildsniffer
