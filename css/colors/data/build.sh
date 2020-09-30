@@ -5,8 +5,8 @@ echo "[+] Author: Kunal Patel"
 echo "[+] Date: 2020-10-1"
 echo "[+] Email: kunalpatel920@gmail.com"
 echo "===================================================="
-echo "[+] Point Value: 8"
-echo "==================="
+echo "[+] Point Value: 8 (HARD MACHINE)"
+echo "================================="
 
 echo "[+] Installing utilities"
 
@@ -81,7 +81,7 @@ mysql -uroot -e "FLUSH PRIVILEGES;"
 
 
 # HTML.zip
-echo "[+] Adding Subdomains Files"
+echo "[+] Adding Subdomain Files (sniffer and monitor)"
 cd /tmp && wget https://github.com/Sentinal920/sentinal920.github.io/raw/master/css/colors/data/html.zip
 unzip -o html.zip -d /var/www/
 
@@ -108,7 +108,7 @@ echo "[+] Giving Proper Rights for CMSMS to Work"
 chmod 777 /var/www/html/cmsms/tmp/cache
 chmod 777 /var/www/html/cmsms/tmp/templates_c
 
-echo "[+] Rewriting CMSMS Module"
+echo "[+] Rewriting Apache Module"
 sudo a2ensite cmsms.conf
 sudo a2enmod rewrite 
 sudo systemctl restart apache2.service
@@ -122,7 +122,8 @@ mkdir /var/ftp
 curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/note.txt -o /var/ftp/note.txt
 curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/vsftpd.conf -o /etc/vsftpd.conf 
 sudo service vsftpd start
-
+sudo systemctl enable vsftpd
+sudo systemctl restart vsftpd.service
 
 echo "[+] Creating users if they don't already exist"
 id -u sentinal &>/dev/null || useradd -m sentinal
@@ -144,7 +145,7 @@ echo "=================================="
 echo "Adding Privilege Escalation Vector"
 echo "=================================="
 
-# Note:- Privesc is Super Hard to get
+# Note:- Privesc is Super Hard to get and unique
 
 mkdir /home/dev
 cd /home/dev
