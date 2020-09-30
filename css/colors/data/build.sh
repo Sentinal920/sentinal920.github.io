@@ -134,6 +134,7 @@ ln -sf /dev/null /root/.bash_history
 ln -sf /dev/null /home/sentinal/.bash_history
 
 # Removing Sudo rights for all users
+
 echo "[+] Removing Sudo rights for all users"
 echo "Defaults	env_reset" > /etc/sudoers
 echo "Defaults	mail_badpass" >> /etc/sudoers
@@ -150,8 +151,7 @@ echo "=================================="
 mkdir /home/dev
 cd /home/dev
 
-echo "rm -rf /home/dev/*" > /opt/task1.sh
-echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" >> /opt/task1.sh
+echo "echo \"wall \'The harder you work the harder it is to surrender\' \" > /home/dev/sentinal.sh" > /opt/task1.sh
 echo "chmod 700 /home/dev/sentinal.sh" >> /opt/task1.sh
 chown -R www-data:www-data /home/dev
 
