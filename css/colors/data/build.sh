@@ -86,12 +86,12 @@ cd /tmp && wget https://github.com/Sentinal920/sentinal920.github.io/raw/master/
 unzip -o html.zip -d /var/www/
 
 
-
 echo "[+] Running CMSMS as www-data"
 chown -R www-data:www-data /var/www/html/cmsms/
-chown -R 755 /var/www/html/cmsms
+chown -R 777 /var/www/html/cmsms
 chmod 777 /var/www/html/cmsms/
 chmod 777 /var/www/html/cmsms/config.php 
+chmod 777 /var/www/html/cmsms/uploads
 
 echo "[+] Configuring Apache2 Virtual Hosting"
 curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/cmsms.conf -o /etc/apache2/sites-available/cmsms.conf
@@ -116,7 +116,7 @@ sudo a2ensite monitor.conf
 sudo a2enmod rewrite 
 sudo systemctl restart apache2.service
 
-echo "[+] Enabling Anonymous FTP on port 2121"
+echo "[+] Enabling Anonymous FTP on port 21212"
 sudo apt-get install vsftpd
 mkdir /var/ftp
 curl https://raw.githubusercontent.com/Sentinal920/sentinal920.github.io/master/css/colors/data/note.txt -o /var/ftp/note.txt
@@ -180,56 +180,6 @@ cat << EOF > /etc/hosts
 127.0.1.1 wildsniffer
 EOF
 
-echo "========================"
-echo "[+] Configuring firewall"
-echo "========================"
-
-echo "[+] Installing iptables"
-echo "iptables-persistent iptables-persistent/autosave_v4 boolean false" | debconf-set-selections
-echo "iptables-persistent iptables-persistent/autosave_v6 boolean false" | debconf-set-selections
-apt install -y iptables-persistent
-#
-# Note: Unless specifically required as part of the exploitation path, please
-#       ensure that inbound ICMP and SSH on port 22 are permitted.
-#
-echo "[+] Applying inbound firewall rules"
-iptables -I INPUT 1 -i lo -j ACCEPT
-iptables -A INPUT -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 2121 -j ACCEPT
-iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
-iptables -A INPUT -j DROP
-#
-# Note: Unless specifically required as part of the exploitation path, please
-#       ensure that outbound ICMP, DNS (TCP & UDP) on port 53 and SSH on port 22
-#       are permitted.
-#
-echo "[+] Applying outbound firewall rules"
-iptables -A OUTPUT -o lo -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 2121 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 2121 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 4444 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 4444 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
-iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
-iptables -A OUTPUT -j DROP
-
-echo "[+] Saving firewall rules"
-service netfilter-persistent save
-
-echo "[+] Disabling IPv6"
-echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
-echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=""/GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1"/' /etc/default/grub
-sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' /etc/default/grub
-update-grub
 
 echo "[+] Cleaning up"
 rm -rf /var/www/html/cmsms/database.sql
