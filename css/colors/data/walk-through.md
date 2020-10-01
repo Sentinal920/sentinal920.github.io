@@ -145,6 +145,9 @@ Selecting Option 3, dnsspoof runs but gets blocked by firewall
 
 Selecting Option 4, MITM attack starts and we get a capture.pcap file
 
+```
+Wireshark
+```
 Opening capture.pcap file in wireshark, doing Follow --> Stream on Packet number 10 we get
 ```
 GET /statuses/replies.xml HTTP/1.1
