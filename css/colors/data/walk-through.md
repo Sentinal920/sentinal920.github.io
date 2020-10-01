@@ -258,7 +258,11 @@ drwxr-xr-x 5 root     root     4096 Sep 30 18:38  ..
 -rwxrwxrwx 1 www-data www-data    1 Sep 30 18:43  whatever
 -rwxrwxrwx 1 root     root       60 Sep 30 18:46  sentinal.sh
 ```
-When chmod 744 * is executed as cron job it took reference of file "whatever" having permisson "777" and thus changing permisson of all files to 777
+So at backend side the command that would be executed is
+```
+chmod 744 * --reference=whatever
+```
+And as file whatever has permission 777 it would take 777 as reference for all files
 ```
 www-data@wildsniffer:/home/dev# ls -la
 total 20
