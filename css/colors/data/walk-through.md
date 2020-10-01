@@ -156,3 +156,24 @@ Authorization: Basic Z29rdTpkcmFnb25iYWxsc3VwZXI=
 Connection: keep-alive
 Host: twitter.com
 ```
+Using base64 decoding to decode Authoization Basic
+```
+echo -n Z29rdTpkcmFnb25iYWxsc3VwZXI= |base64 -d
+
+goku:dragonballsuper
+```
+We would use those creds to login into sniffer.com but get invalid creds
+```
+http://sniffer.com/admin/login.php
+```
+Recalling the intern-roles.txt file earlier that had lot of users, we try to login into those users and we get valid cred
+```
+tom:dragonballsuper
+```
+After login, we select content -> File Manager
+
+Here we can try to upload our php reverse shell, but as it would block php files by default, we would rename our file to rev.txt and upload.
+
+After it gets uploaded, we would select our file "rev.txt" and click on copy and set new Target File name: as rev.php.
+
+Execute rev.php and get a Reverse Shell
