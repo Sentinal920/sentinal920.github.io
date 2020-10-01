@@ -80,6 +80,7 @@ Adding sniffer.com in /etc/hosts
 13.72.119.96    sniffer.com 
 ```
 Visitng sniffer.com we come to know it is running cmsms 2.2.5 that has Authenticated RCE.
+
 To find more subdomains we start a subdomain bruteforce scan and get a new subdomain.
 ```
 ./gobuster vhost -u http://sniffer.com -w /opt/subdomains.lst
@@ -162,12 +163,17 @@ echo -n Z29rdTpkcmFnb25iYWxsc3VwZXI= |base64 -d
 
 goku:dragonballsuper
 ```
+
+## Exploitation
+
 We would use those creds to login into sniffer.com but get invalid creds
 ```
 http://sniffer.com/admin/login.php
 ```
-Recalling the intern-roles.txt file earlier that had lot of users, we try to login into those users and we get valid cred
+Recalling the intern-roles.txt file earlier from ftp, that had lot of users, we try to login into those users to find valid combo
 ```
+We get valid combo
+
 tom:dragonballsuper
 ```
 After login, we select content -> File Manager
@@ -177,3 +183,30 @@ Here we can try to upload our php reverse shell, but as it would block php files
 After it gets uploaded, we would select our file "rev.txt" and click on copy and set new Target File name: as rev.php.
 
 Execute rev.php and get a Reverse Shell
+
+## User Escalation
+
+Looking at the /etc/crontab we find there are few cron tasks running every minute by user root
+```
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+* * * * * root /opt/task.sh
+* * * * * root /home/dev/sentinal.sh
+```
+Checking /home/dev/sentinal.sh we find nothing interesting
+``` 
+wall \'The harder you work the harder it is to surrender\' 
+```
+Checking /opt/task.sh we find it is using wildcard chmod 744 * to change file permission of all files under /home/dev
+```
+cd /home/dev/ && chmod 744 *
+```
+Looking at file permission, user www-data has only read rights on both the files
+
