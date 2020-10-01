@@ -137,8 +137,11 @@ Vsiting /files we find there are four network monitoring tools installed.
 4) Man in the middle 
 ```
 Selecting Option 1, we get current date
+
 Selecting Option 2, arpspoof runs but gets blocked by firewall
+
 Selecting Option 3, dnsspoof runs but gets blocked by firewall
+
 Selecting Option 4, MITM attack starts and we get a capture.pcap file
 
 Opening capture.pcap file in wireshark, doing Follow --> Stream on Packet number 10 we get
