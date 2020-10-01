@@ -1,4 +1,5 @@
 Hey dave, 
-I wont be available for the next 2 days. Please make sure you inform the interns about their roles and work they have been assigned. They have been working on some web based networking monitoring tool for fun. Check the file i've uploaded for intern names and roles and please make sure you take down any subdomains they might have created for their tool.
+I wont be available for the next 2 days. Please make sure you inform the new interns about their roles and assigned work.
+Check the file i've uploaded for intern names and roles. They have been working on some web based networking monitoring tool for fun. Please make sure you take down any subdomains they might have created for their tool.
 Regards,
 Tom
