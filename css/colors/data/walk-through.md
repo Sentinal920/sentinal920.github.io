@@ -220,7 +220,8 @@ man chmod
  --reference=RFILE
               use RFILE's mode instead of MODE values
 ```
-We can use this "--reference=RFILE" to our advantage
+We can use this "--reference=RFILE" to our advantage.
+
 Create any file with 777 permission and give reference to that file
 
 ```
