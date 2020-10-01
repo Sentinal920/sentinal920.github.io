@@ -148,7 +148,7 @@ Selecting Option 4, MITM attack starts and we get a capture.pcap file
 ```
 Wireshark
 ```
-Opening capture.pcap file in wireshark, doing Follow --> Stream on Packet number 10 we get
+Opening capture.pcap file in wireshark, doing `Follow --> Stream` on Packet number `10` we get
 ```
 GET /statuses/replies.xml HTTP/1.1
 User-Agent: SentinalNetwork/920
@@ -264,7 +264,7 @@ chmod 744 * --reference=whatever
 ```
 And as file whatever has permission 777 it would take 777 as reference for all files.
 
-Now we have write access to file "Sentinal.sh" which is run by root every minute.
+Now we have write access to file `Sentinal.sh` which is run by root every minute.
 ```
 www-data@wildsniffer:/home/dev# ls -la
 total 20
