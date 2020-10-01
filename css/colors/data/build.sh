@@ -156,7 +156,6 @@ echo "wall \'The harder you work the harder it is to surrender\' " > /home/dev/s
 
 chown -R www-data:www-data /home/dev
 chown -R root:root /home/dev/sentinal.sh
-chmod 744 /home/dev/sentinal.sh
 
 # Privilege Escalation vector 2 (chmod Wildcard *)
 
@@ -166,7 +165,7 @@ echo "* * * * * root /opt/task.sh" >> /etc/crontab
 echo "* * * * * root /home/dev/sentinal.sh" >> /etc/crontab
 
 chmod 744 /opt/task.sh
-chmod +x /home/dev/sentinal.sh
+chmod 744 /home/dev/sentinal.sh
 
 
 echo "[+] Dropping flags"
