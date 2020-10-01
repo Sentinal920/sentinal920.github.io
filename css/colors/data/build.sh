@@ -1,10 +1,10 @@
-echo "===================================================="
+echo "========================================================================="
 echo "[+] Building Wild Sniffer"
-echo "[+] OS: Tested on Ubuntu 20.04 LTS"
+echo "[+] OS: Tested on Azure Ubuntu Server 18.04 LTS - Gen1 & Ubuntu 20.04 LTS"
 echo "[+] Author: Kunal Patel"
 echo "[+] Date: 2020-10-1"
 echo "[+] Email: kunalpatel920@gmail.com"
-echo "===================================================="
+echo "========================================================================="
 echo "[+] Point Value: 8 (HARD MACHINE)"
 echo "================================="
 
@@ -159,6 +159,7 @@ chown -R root:root /home/dev/sentinal.sh
 chmod 700 /home/dev/sentinal.sh
 
 # Privilege Escalation vector 2 (chmod Wildcard *)
+
 echo "cd /home/dev/ && chmod 744 *" > /opt/task.sh
 
 echo "* * * * * root /opt/task.sh" >> /etc/crontab
