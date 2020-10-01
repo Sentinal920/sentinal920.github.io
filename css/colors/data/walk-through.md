@@ -130,7 +130,7 @@ Progress: 284 / 220561 (0.13%)
 ```
 We find a hidden directory /files.
 
-Vsiting /files we find there are four network monitoring tools installed.
+Visiting /files, we find there are four network monitoring tools installed.
 ```
 1) Get Date
 2) Arp Poisoning
@@ -262,7 +262,9 @@ So at backend side the command that would be executed is
 ```
 chmod 744 * --reference=whatever
 ```
-And as file whatever has permission 777 it would take 777 as reference for all files
+And as file whatever has permission 777 it would take 777 as reference for all files.
+
+Now we have write access to file "Sentinal.sh" which is run by root every minute.
 ```
 www-data@wildsniffer:/home/dev# ls -la
 total 20
