@@ -59,7 +59,7 @@ Name 	                    Size 	        Last Modified
 File:intern-roles.txt      1 KB       01/10/20 	11:51:00 IST
 File:note.txt              1 KB 	    01/10/20 	11:51:00 IST
 ```
-Reading note.txt we know there are subdomains
+Reading note.txt we get a clue about subdomains and some network monitoring tool
 ```
 Hey dave, 
 I wont be available for the next 2 days. Please inform the new interns about their roles and assigned work.
